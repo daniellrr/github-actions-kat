@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository contains a set of exercises to learn Github Actions.
+This repository contains a set of exercises to learn Github Actions
 
 ### Exercises
 
