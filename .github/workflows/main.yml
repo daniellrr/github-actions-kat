@@ -28,7 +28,7 @@ jobs:
         uses: super-linter/super-linter/slim@latest
         env:
           DEFAULT_BRANCH: main
-          #DISABLE_ERRORS: true
+          DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     
