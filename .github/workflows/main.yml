@@ -15,12 +15,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache code
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
-            .
-          key: ${{ runner.os }}-code-${{ github.sha }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: ci/unit-test-app.sh
@@ -31,12 +35,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache code
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
-            .
-          key: ${{ runner.os }}-code-${{ github.sha }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Run linting
         uses: super-linter/super-linter/slim@latest
         env:
@@ -56,12 +64,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache code
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
-            .
-          key: ${{ runner.os }}-code-${{ github.sha }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: Push docker
@@ -76,12 +88,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache code
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
-            .
-          key: ${{ runner.os }}-code-${{ github.sha }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Execute component test
         run: chmod +x ci/component-test.sh && ci/component-test.sh 
 
@@ -94,11 +110,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Cache code
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
-            .
-          key: ${{ runner.os }}-code-${{ github.sha }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Execute performance test
         run: chmod +x ci/performance-test.sh && ci/performance-test.sh
