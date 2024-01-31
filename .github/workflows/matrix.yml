@@ -13,8 +13,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-          .
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', './**') }}
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
   Build:
@@ -26,6 +25,7 @@ jobs:
     container:
       image: ${{ matrix.container }}   
     steps:
+    - uses: actions/checkout@v4
     - name: Build with Gradle
       run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Upload Repo
